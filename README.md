@@ -44,13 +44,6 @@ Switch between two beautiful scenes:
 - **Butterflies**: Two animated butterflies fly around the scene
 - **Elegant Typography**: Classic serif fonts for a timeless feel
 
-## 🚀 How to Use
-
-### Opening the File
-
-1. **Download** the `tulips-romantic.html` file
-2. **Double-click** to open in any web browser
-3. No internet connection required - works offline!
 
 ### Interacting with the Scene
 
