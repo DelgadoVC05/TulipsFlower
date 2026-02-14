@@ -1,0 +1,721 @@
+:root {
+    --light-green: #25af59;
+    --green: #139a3e;
+    --light-pink: #f3a69e;
+    --pink: #ff8081;
+    --dark-pink: #e86b6c;
+    --purple: #b19cd9;
+    --light-purple: #d4c4f5;
+    --sky-morning: linear-gradient(to bottom, #87CEEB 0%, #ffd89b 100%);
+    --sky-evening: linear-gradient(to bottom, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    --ground-morning: #8db596;
+    --ground-evening: #1a3a2e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--sky-morning);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 1s ease;
+    position: relative;
+    font-family: 'Georgia', serif;
+}
+
+body.night-mode {
+    background: var(--sky-evening);
+}
+
+/* Romantic Message */
+.message {
+    position: absolute;
+    top: 100px;
+    text-align: center;
+    color: #333;
+    z-index: 100;
+    animation: fadeIn 2s ease-in;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+}
+
+body.night-mode .message {
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.message h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+.message p {
+    font-size: 1.2em;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Floating Hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatHeart 8s ease-in-out infinite;
+    opacity: 0;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-800px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Sun and Moon */
+.celestial-body {
+    position: absolute;
+    top: 50px;
+    right: 80px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transition: all 1s ease;
+    z-index: 1;
+}
+
+.sun {
+    background: radial-gradient(circle, #ffd700 0%, #ffed4e 100%);
+    box-shadow: 0 0 60px #ffed4e, 0 0 100px rgba(255, 215, 0, 0.5);
+    opacity: 1;
+}
+
+body.night-mode .sun {
+    opacity: 0;
+    transform: translateY(200px);
+}
+
+.moon {
+    background: radial-gradient(circle, #f0f0f0 0%, #d4d4d4 100%);
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    transform: translateY(-200px);
+}
+
+body.night-mode .moon {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.moon::before,
+.moon::after {
+    content: '';
+    position: absolute;
+    background: rgba(180, 180, 180, 0.3);
+    border-radius: 50%;
+}
+
+.moon::before {
+    width: 20px;
+    height: 20px;
+    top: 15px;
+    left: 25px;
+}
+
+.moon::after {
+    width: 15px;
+    height: 15px;
+    bottom: 20px;
+    right: 18px;
+}
+
+/* Stars */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+body.night-mode .stars {
+    opacity: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 3px white;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Ground */
+.ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    background: var(--ground-morning);
+    transition: background 1s ease;
+    border-radius: 50% 50% 0 0;
+    z-index: 0;
+}
+
+body.night-mode .ground {
+    background: var(--ground-evening);
+}
+
+/* Toggle Button */
+.mode-toggle {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+body.night-mode .mode-toggle {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.mode-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.mode-icon {
+    font-size: 20px;
+}
+
+/* Container */
+.container {
+    position: relative;
+    width: 500px;
+    height: 450px;
+    z-index: 10;
+}
+
+.tulip {
+    width: 10px;
+    height: 400px;
+    margin: 30px 100px;
+    float: left;
+    animation: sway 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+}
+
+body.night-mode .tulip {
+    filter: drop-shadow(0 8px 30px rgba(255, 128, 129, 0.5));
+}
+
+/* Different colored tulips */
+.leftBabyTulip {
+    transform: scale(.7);
+    left: -140px;
+    top: 60px;
+    animation: sway 3.5s ease-in-out infinite;
+    animation-delay: 0.3s;
+}
+
+.leftBabyTulip .tulipHead {
+    background: linear-gradient(to bottom, var(--light-purple) 0%, var(--purple) 100%);
+}
+
+body.night-mode .leftBabyTulip .tulipHead {
+    background: linear-gradient(to bottom, #b8a3d9 0%, #9d7dcc 100%);
+    box-shadow: 0 5px 25px rgba(177, 156, 217, 0.4);
+}
+
+.leftBabyTulip .lightTulip {
+    border-bottom-color: var(--light-purple);
+}
+
+body.night-mode .leftBabyTulip .lightTulip {
+    border-bottom-color: #b8a3d9;
+}
+
+.leftBabyTulip .darkTulip {
+    border-bottom-color: var(--purple);
+}
+
+body.night-mode .leftBabyTulip .darkTulip {
+    border-bottom-color: #9d7dcc;
+}
+
+.leftBabyTulip .tulipLeaf {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--light-purple) 100%);
+}
+
+body.night-mode .leftBabyTulip .tulipLeaf {
+    background: linear-gradient(135deg, #9d7dcc 0%, #b8a3d9 100%);
+}
+
+.leftBabyTulip .rightStemLeaf {
+    top: 105px;
+    transform: rotate(-32deg);
+    left: -15px;
+}
+
+.leftBabyTulip .leftStemLeaf {
+    transform: scale(0.7) rotate(90deg);
+    left: -54px;
+}
+
+.rightBabyTulip {
+    transform: scale(.85);
+    left: 150px;
+    top: 35px;
+    animation: sway 3.2s ease-in-out infinite;
+    animation-delay: 0.6s;
+}
+
+.rightBabyTulip .tulipHead {
+    transform: rotate(23deg);
+    left: -80px;
+}
+
+.rightBabyTulip .leftStemLeaf {
+    visibility: hidden;
+}
+
+.rightBabyTulip .rightStemLeaf {
+    top: 70px;
+    transform: rotate(-32deg);
+    left: -15px;
+}
+
+.tulip,
+.stem,
+.stemLeaf,
+.tulipHead,
+.tulipLeaf,
+.tulipHair,
+.tulipBlush {
+    position: absolute;
+}
+
+.stem {
+    height: 220px;
+    width: 12px;
+    border-radius: 50px;
+    background: linear-gradient(to bottom, var(--light-green) 0%, var(--green) 100%);
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    z-index: 0;
+    box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+body.night-mode .stem {
+    background: linear-gradient(to bottom, #1e8e47 0%, #0f6b2e 100%);
+}
+
+.stemLeaf {
+    background: linear-gradient(135deg, var(--green) 0%, var(--light-green) 100%);
+    width: 60px;
+    height: 60px;
+    animation: leafWave 2.5s ease-in-out infinite;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.night-mode .stemLeaf {
+    background: linear-gradient(135deg, #0f6b2e 0%, #1a7d42 100%);
+}
+
+.leaf {
+    border-radius: 90% 0 90% 0;
+}
+
+.rightStemLeaf {
+    top: 60%;
+    width: 100px;
+    transform: rotate(-10deg);
+    left: -1px;
+    animation-delay: 0.5s;
+}
+
+.leftStemLeaf {
+    top: 20%;
+    width: 80px;
+    transform: rotate(90deg);
+    left: -63px;
+    z-index: -2;
+    animation-delay: 0.2s;
+}
+
+.tulipHead {
+    top: -170px;
+    left: -102px;
+    background: linear-gradient(to bottom, var(--light-pink) 0%, var(--pink) 100%);
+    width: 200px;
+    height: 175px;
+    border-radius: 0 0 50% 50%;
+    z-index: 0;
+    transform: rotate(-11deg);
+    animation: headBob 2.8s ease-in-out infinite;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+body.night-mode .tulipHead {
+    background: linear-gradient(to bottom, #d18a85 0%, #e86b6c 100%);
+    box-shadow: 0 8px 30px rgba(255, 128, 129, 0.4);
+}
+
+.tulipLeaf {
+    background: linear-gradient(135deg, var(--pink) 0%, var(--dark-pink) 100%);
+    width: 45px;
+    height: 45px;
+    z-index: -1;
+    animation: petalFloat 3s ease-in-out infinite;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+body.night-mode .tulipLeaf {
+    background: linear-gradient(135deg, #e86b6c 0%, #d15a5b 100%);
+}
+
+.rightTulipLeaf {
+    transform: rotate(90deg);
+    left: 4px;
+    animation-delay: 0.4s;
+}
+
+.leftTulipLeaf {
+    left: -33px;
+    animation-delay: 0.1s;
+}
+
+.tulipHair {
+    width: 0;
+    height: 0;
+    top: -65px;
+    border-left: 32px solid transparent;
+    border-right: 32px solid transparent;
+    border-bottom: 65px solid var(--light-pink);
+    animation: petalSway 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+}
+
+.lightTulip {
+    border-bottom: 65px solid var(--light-pink);
+}
+
+body.night-mode .lightTulip {
+    border-bottom: 65px solid #d18a85;
+}
+
+.darkTulip {
+    border-bottom: 35px solid var(--pink);
+    top: -35px;
+    z-index: -1;
+}
+
+body.night-mode .darkTulip {
+    border-bottom: 35px solid #e86b6c;
+}
+
+.darkTulip-1 {
+    left: 30px;
+    animation-delay: 0.2s;
+}
+
+.darkTulip-2 {
+    left: 107px;
+    animation-delay: 0.4s;
+}
+
+.lightTulip-1 {
+    transform: rotate(-27deg);
+    top: -48px;
+    left: -17px;
+    animation-delay: 0.1s;
+}
+
+.lightTulip-2 {
+    left: 70px;
+    animation-delay: 0.3s;
+}
+
+.lightTulip-3 {
+    transform: rotate(27deg);
+    top: -48px;
+    left: 156px;
+    animation-delay: 0.5s;
+}
+
+/* Center sparkle on tulip instead of eyes */
+.tulipSparkle {
+    position: absolute;
+    top: 65px;
+    left: 90px;
+    width: 20px;
+    height: 20px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.tulipSparkle::before,
+.tulipSparkle::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+}
+
+.tulipSparkle::before {
+    width: 3px;
+    height: 20px;
+    left: 8.5px;
+}
+
+.tulipSparkle::after {
+    width: 20px;
+    height: 3px;
+    top: 8.5px;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        transform: scale(0.8) rotate(0deg);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(90deg);
+        opacity: 1;
+    }
+}
+
+.tulipBlush {
+    border-radius: 50%;
+    background-color: var(--dark-pink);
+    width: 35px;
+    height: 35px;
+    animation: blushPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(255, 128, 129, 0.5);
+}
+
+body.night-mode .tulipBlush {
+    background-color: #c95657;
+    box-shadow: 0 0 20px rgba(255, 128, 129, 0.6);
+}
+
+.leftBlush {
+    top: 75px;
+    left: 35px;
+}
+
+.rightBlush {
+    top: 75px;
+    left: 130px;
+    animation-delay: 0.3s;
+}
+
+/* Keyframe Animations */
+@keyframes sway {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(4deg);
+    }
+
+    75% {
+        transform: rotate(-4deg);
+    }
+}
+
+@keyframes headBob {
+
+    0%,
+    100% {
+        transform: rotate(-11deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(-11deg) translateY(-12px);
+    }
+}
+
+@keyframes leafWave {
+
+    0%,
+    100% {
+        transform: rotate(-10deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(-15deg) scale(1.08);
+    }
+}
+
+@keyframes petalFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(90deg);
+    }
+
+    50% {
+        transform: translateY(-6px) rotate(93deg);
+    }
+}
+
+@keyframes petalSway {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(4deg);
+    }
+}
+
+@keyframes blushPulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Special adjustments for baby tulips */
+.leftBabyTulip .stemLeaf {
+    animation-duration: 3s;
+}
+
+.rightBabyTulip .stemLeaf {
+    animation-duration: 2.8s;
+}
+
+/* Grass blades */
+.grass {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.grass-blade {
+    position: absolute;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to top, var(--green), var(--light-green));
+    border-radius: 50% 50% 0 0;
+    animation: grassSway 2s ease-in-out infinite;
+    transform-origin: bottom;
+}
+
+body.night-mode .grass-blade {
+    background: linear-gradient(to top, #0a4d25, #156b39);
+}
+
+@keyframes grassSway {
+
+    0%,
+    100% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+/* Butterflies */
+.butterfly {
+    position: absolute;
+    font-size: 24px;
+    animation: butterflyFly 15s ease-in-out infinite;
+    z-index: 50;
+}
+
+@keyframes butterflyFly {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(300px, -100px) rotate(10deg);
+    }
+
+    50% {
+        transform: translate(600px, 50px) rotate(-10deg);
+    }
+
+    75% {
+        transform: translate(300px, 100px) rotate(5deg);
+    }
+}
